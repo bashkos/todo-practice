@@ -62,6 +62,7 @@ class App extends PureComponent {
           <AddTask onAddTask={this.handleAddTask} />
           <TaskList tasks={tasks} filter={filter} onChangeState={this.handleChangeState} 
 			  		deleteTask={this.deleteTask}/>
+          <TaskList tasks={tasks} filter={filter} onChangeState={this.handleChangeState} />
           <Filter filter={filter} onChangeFilter={this.handleChangeFilter} />
         </Paper>
       </div>

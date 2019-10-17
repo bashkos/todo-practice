@@ -16,11 +16,10 @@ export default class TaskList extends PureComponent {
         return true;
     }
   }
-  
 	deleteTask(key) {
 		this.props.deleteTask(key);
 	}
-  
+
   render() {
     const { tasks, onChangeState } = this.props;
 
