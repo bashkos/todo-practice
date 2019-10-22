@@ -47,6 +47,10 @@ class App extends PureComponent {
       filter
     });
   }
+  
+  deleteTask = (key) => this.setState(({tasks}) => ({
+	  tasks: tasks.delete(key)
+  }));
 
   render() {
     const { tasks, filter } = this.state;
@@ -56,6 +60,8 @@ class App extends PureComponent {
       <div>
         <Paper className={classes.paper}>
           <AddTask onAddTask={this.handleAddTask} />
+          <TaskList tasks={tasks} filter={filter} onChangeState={this.handleChangeState} 
+			  		deleteTask={this.deleteTask}/>
           <TaskList tasks={tasks} filter={filter} onChangeState={this.handleChangeState} />
           <Filter filter={filter} onChangeFilter={this.handleChangeFilter} />
         </Paper>

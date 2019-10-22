@@ -16,6 +16,9 @@ export default class TaskList extends PureComponent {
         return true;
     }
   }
+	deleteTask(key) {
+		this.props.deleteTask(key);
+	}
 
   render() {
     const { tasks, onChangeState } = this.props;
@@ -28,6 +31,11 @@ export default class TaskList extends PureComponent {
               control={<Checkbox checked={task.completed} onChange={() => onChangeState(key)} />}
               label={task.name}
             />
+			<button
+				onClick={() => this.deleteTask(key)}
+				>
+				X
+				</button>
           </ListItem>
         ))}
       </List>
