@@ -6,6 +6,7 @@ import './App.css';
 import AddTask from '../add-task/AddTask'
 import TaskList from '../task-list/TaskList'
 import Filter from '../filter/Filter';
+import TodoContext from '../todo-context/TodoContext';
 
 const styles = theme => ({
   paper: {
@@ -16,11 +17,6 @@ const styles = theme => ({
 });
 
 class App extends PureComponent {
-  state = {
-    tasks: Map(),
-    filter: 'all'
-  }
-
   handleAddTask = (name) => {
     this.setState(({ tasks }) => ({
       tasks: tasks.set(tasks.size, {
@@ -47,25 +43,39 @@ class App extends PureComponent {
       filter
     });
   }
-  
+
   deleteTask = (key) => this.setState(({tasks}) => ({
 	  tasks: tasks.delete(key)
   }));
+
+  state = {
+    tasks: Map(),
+    filter: 'all',
+    handleAddTask: this.handleAddTask,
+    handleChangeState: this.handleChangeState,
+    handleChangeFilter: this.handleChangeFilter
+  }
+
 
   render() {
     const { tasks, filter } = this.state;
     const { classes } = this.props;
 
     return (
-      <div>
-        <Paper className={classes.paper}>
-          <AddTask onAddTask={this.handleAddTask} />
-          <TaskList tasks={tasks} filter={filter} onChangeState={this.handleChangeState} 
-			  		deleteTask={this.deleteTask}/>
-          <TaskList tasks={tasks} filter={filter} onChangeState={this.handleChangeState} />
-          <Filter filter={filter} onChangeFilter={this.handleChangeFilter} />
-        </Paper>
-      </div>
+      <TodoContext.Provider value={this.state}>
+        <div>
+          <Paper className={classes.paper}>
+            <AddTask onAddTask={this.handleAddTask} />
+            <TaskList
+              tasks={tasks}
+              filter={filter}
+              onChangeState={this.handleChangeState}
+              deleteTask={this.deleteTask}
+            />
+            <Filter />
+          </Paper>
+        </div>
+      </TodoContext.Provider>
     );
   }
 }
