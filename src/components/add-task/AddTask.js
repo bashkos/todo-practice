@@ -1,10 +1,13 @@
 import React, { PureComponent } from 'react';
 import TextField from '@material-ui/core/TextField';
+import TodoContext from '../todo-context/TodoContext';
 
 export default class AddTask extends PureComponent {
   state = {
     task: ''
   }
+
+	static contextType = TodoContext;
 
   handleChangeTask = (e) => {
     this.setState({
@@ -13,11 +16,11 @@ export default class AddTask extends PureComponent {
   }
 
   handleSubmit = (e) => {
-    const { onAddTask } = this.props;
+    const { handleAddTask } = this.context;;
     const { task } = this.state;
 
-    if (typeof onAddTask === 'function') {
-      onAddTask(task);
+    if (typeof handleAddTask === 'function') {
+      handleAddTask(task);
 
       this.setState({
         task: ''
@@ -31,15 +34,15 @@ export default class AddTask extends PureComponent {
     const { task } = this.state;
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <TextField
-          label="Task"
-          margin="normal"
-          variant="outlined"
-          value={task}
-          onChange={this.handleChangeTask}
-        />
-      </form>
+			<form onSubmit={this.handleSubmit}>
+				<TextField
+					label="Task"
+					margin="normal"
+					variant="outlined"
+					value={task}
+					onChange={this.handleChangeTask}
+				/>
+			</form>
     )
   }
 }
