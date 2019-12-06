@@ -65,7 +65,7 @@ class App extends PureComponent {
       <TodoContext.Provider value={this.state}>
         <div>
           <Paper className={classes.paper}>
-            <AddTask onAddTask={this.handleAddTask} />
+            <AddTask />
             <TaskList
               tasks={tasks}
               filter={filter}
